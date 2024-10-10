@@ -3,6 +3,8 @@ package com.wineranger.wineranger.service;
 import com.wineranger.wineranger.dto.auxiliars.CoordinatesDTO;
 import com.wineranger.wineranger.entity.auxuliars.Coordinates;
 import com.wineranger.wineranger.repository.CoordinatesRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ import java.util.stream.Collectors;
 public class CoordinatesServiceImpl implements CoordinatesService{
 
     private final CoordinatesRepository coordinatesRepository;
+    private static final Logger logger = LoggerFactory.getLogger(CoordinatesServiceImpl.class);
+
 
     @Autowired
     public CoordinatesServiceImpl(CoordinatesRepository coordinatesRepository, CoordinatesRepository coordinatesRepository1){
@@ -37,6 +41,8 @@ public class CoordinatesServiceImpl implements CoordinatesService{
     @Override
     public CoordinatesDTO create(CoordinatesDTO dto) {
         Coordinates entity = new Coordinates(dto);
+        entity.prepareToSave();
+        logger.info(dto.toString());
         return coordinatesRepository.save(entity).returnDTO();
     }
 

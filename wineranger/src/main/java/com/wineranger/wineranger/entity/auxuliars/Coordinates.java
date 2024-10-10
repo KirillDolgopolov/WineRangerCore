@@ -3,7 +3,6 @@ package com.wineranger.wineranger.entity.auxuliars;
 import com.wineranger.wineranger.dto.auxiliars.CoordinatesDTO;
 import com.wineranger.wineranger.entity.AbstractClass;
 import jakarta.persistence.Entity;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -11,26 +10,25 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-@AllArgsConstructor
 public class Coordinates extends AbstractClass {
+
     private Double latitude;
     private Double longitude;
 
-    /*
-     * We can create a new entity from a DTO
-     */
     public Coordinates(CoordinatesDTO dto){
-        super();
+        super(dto);
         this.setLongitude(dto.getLongitude());
         this.setLatitude(dto.getLatitude());
     }
 
     public Coordinates(){
-        super();
+       // super();
     }
 
     public CoordinatesDTO returnDTO(){
-        return new CoordinatesDTO(this.getLatitude(), this.getLongitude());
+        CoordinatesDTO result = new CoordinatesDTO(this);
+        result.mapSystemFields(this);
+        return result;
     }
 
     /*

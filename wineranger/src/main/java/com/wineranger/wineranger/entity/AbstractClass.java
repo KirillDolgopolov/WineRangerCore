@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import java.sql.Timestamp;
 
 @MappedSuperclass
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @Data
 public abstract class AbstractClass {
 
@@ -25,6 +25,18 @@ public abstract class AbstractClass {
 
     @Column(name="data_mod", nullable=false)
     private Timestamp dateMod;
+
+    public void prepareToSave() {
+        this.setDateMod(new Timestamp(System.currentTimeMillis()));
+    }
+
+    public AbstractClass(AbstractClassDTO dto) {
+        mapSystemFields(dto);
+    }
+
+    public AbstractClass() {
+    }
+
 
     public void mapSystemFields(AbstractClassDTO dto) {
         this.setId(dto.getId());

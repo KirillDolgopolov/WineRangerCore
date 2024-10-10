@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import java.sql.Timestamp;
 
 @MappedSuperclass
-@RequiredArgsConstructor
 @Data
 public abstract class AbstractClassDTO {
 
@@ -16,6 +15,14 @@ public abstract class AbstractClassDTO {
     private Boolean valid = true;
     private Long userModId;
     private Timestamp dateMod;
+
+    public AbstractClassDTO(){
+
+    }
+
+    public AbstractClassDTO(AbstractClass entity){
+        mapSystemFields(entity);
+    }
 
     public void mapSystemFields(AbstractClass entity) {
         this.setId(entity.getId());

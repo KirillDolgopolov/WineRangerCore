@@ -14,6 +14,16 @@ public class CoordinatesDTO extends AbstractClassDTO {
     private Double latitude;
     private Double longitude;
 
+    public CoordinatesDTO(){
+        super();
+    }
+
+    public CoordinatesDTO(Coordinates entity){
+    super(entity);
+    this.setLatitude(entity.getLatitude());
+    this.setLongitude(entity.getLongitude());
+    }
+
     public static CoordinatesDTO mapToDTO(Coordinates entity){
         return new CoordinatesDTO(entity.getLatitude(), entity.getLongitude());
     }
