@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/{languageId}/coordinates")
 public class CoordinatesController {
@@ -17,12 +19,21 @@ public class CoordinatesController {
         this.coordinatesService = coordinatesService;
     }
 
+    @GetMapping("/")
+    public ResponseEntity<List<CoordinatesDTO>> getAll(){
+        try{
+            return new ResponseEntity<>(coordinatesService.getAll(), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<CoordinatesDTO> getById (@PathVariable Long id) {
         try{
             return new ResponseEntity<>(coordinatesService.getById(id), HttpStatus.OK);
         } catch (Exception e){
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
     }
@@ -32,7 +43,7 @@ public class CoordinatesController {
         try{
             return new ResponseEntity<>(coordinatesService.create(dto), HttpStatus.CREATED);
         } catch (Exception e){
-            return ResponseEntity.badRequest().build();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -41,7 +52,7 @@ public class CoordinatesController {
         try{
             return new ResponseEntity<>(coordinatesService.modify(dto), HttpStatus.OK);
         } catch (Exception e){
-            return ResponseEntity.badRequest().build();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -50,7 +61,7 @@ public class CoordinatesController {
         try{
             return new ResponseEntity<>(coordinatesService.delete(id), HttpStatus.ACCEPTED);
         } catch (Exception e){
-            return ResponseEntity.badRequest().build();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 

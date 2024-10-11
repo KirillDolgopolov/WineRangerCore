@@ -15,25 +15,27 @@ public class Coordinates extends AbstractClass {
     private Double latitude;
     private Double longitude;
 
+    public Coordinates(){
+        // super();
+    }
+
     public Coordinates(CoordinatesDTO dto){
         super(dto);
         this.setLongitude(dto.getLongitude());
         this.setLatitude(dto.getLatitude());
     }
 
-    public Coordinates(){
-       // super();
-    }
 
+//return DTO with all fields
     public CoordinatesDTO returnDTO(){
         CoordinatesDTO result = new CoordinatesDTO(this);
         result.mapSystemFields(this);
         return result;
     }
 
-    /*
-    * We can update an existing entity from a DTO
-    */
+//user only for update method.
+// 1. updateEntity(super fields).
+// 2. updateFromDto (this fields).
     public void updateFromDTO(CoordinatesDTO dto){
         this.setLatitude(dto.getLatitude());
         this.setLongitude(dto.getLongitude());

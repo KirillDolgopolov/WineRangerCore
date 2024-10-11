@@ -2,7 +2,6 @@ package com.wineranger.wineranger.dto.auxiliars;
 
 import com.wineranger.wineranger.dto.AbstractClassDTO;
 import com.wineranger.wineranger.entity.auxuliars.Coordinates;
-import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,7 +23,5 @@ public class CoordinatesDTO extends AbstractClassDTO {
     this.setLongitude(entity.getLongitude());
     }
 
-    public static CoordinatesDTO mapToDTO(Coordinates entity){
-        return new CoordinatesDTO(entity.getLatitude(), entity.getLongitude());
-    }
+
 }

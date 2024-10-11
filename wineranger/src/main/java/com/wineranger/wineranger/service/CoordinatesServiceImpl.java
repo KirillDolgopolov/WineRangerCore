@@ -26,7 +26,7 @@ public class CoordinatesServiceImpl implements CoordinatesService{
 
     @Override
     public List<CoordinatesDTO> getAll() {
-        return coordinatesRepository.findAll().stream().map(CoordinatesDTO::mapToDTO).collect(Collectors.toList());
+        return coordinatesRepository.findAll().stream().map(CoordinatesDTO::new).collect(Collectors.toList());
     }
 
     @Override
@@ -41,7 +41,7 @@ public class CoordinatesServiceImpl implements CoordinatesService{
     @Override
     public CoordinatesDTO create(CoordinatesDTO dto) {
         Coordinates entity = new Coordinates(dto);
-        entity.prepareToSave();
+       // entity.prepareToSave();
         logger.info(dto.toString());
         return coordinatesRepository.save(entity).returnDTO();
     }
@@ -53,6 +53,7 @@ public class CoordinatesServiceImpl implements CoordinatesService{
             throw new Exception("No entity");
         }
         Coordinates entityToUpdate = existing.get();
+        entityToUpdate.updateEntity(dto);
         entityToUpdate.updateFromDTO(dto);
         return coordinatesRepository.save(entityToUpdate).returnDTO();
 

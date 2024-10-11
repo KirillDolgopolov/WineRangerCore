@@ -42,7 +42,13 @@ public abstract class AbstractClass {
         this.setId(dto.getId());
         this.setValid(dto.getValid());
         this.setUserModId(dto.getUserModId());
-        this.setDateMod(dto.getDateMod());
+        this.setDateMod(new Timestamp(System.currentTimeMillis()));
+    }
+
+    public void updateEntity(AbstractClassDTO dto){
+        this.setValid(dto.getValid());
+        this.setUserModId(dto.getUserModId());
+        this.setDateMod(new Timestamp(System.currentTimeMillis()));
     }
 
 
