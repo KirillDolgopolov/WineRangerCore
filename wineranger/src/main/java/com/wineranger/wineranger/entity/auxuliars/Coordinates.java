@@ -5,18 +5,19 @@ import com.wineranger.wineranger.entity.AbstractClass;
 import jakarta.persistence.Entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
+@ToString(callSuper = true)
 public class Coordinates extends AbstractClass {
 
     private Double latitude;
     private Double longitude;
 
     public Coordinates(){
-        // super();
     }
 
     public Coordinates(CoordinatesDTO dto){
@@ -25,17 +26,10 @@ public class Coordinates extends AbstractClass {
         this.setLatitude(dto.getLatitude());
     }
 
-
-//return DTO with all fields
     public CoordinatesDTO returnDTO(){
-        CoordinatesDTO result = new CoordinatesDTO(this);
-        result.mapSystemFields(this);
-        return result;
+        return new CoordinatesDTO(this);
     }
 
-//user only for update method.
-// 1. updateEntity(super fields).
-// 2. updateFromDto (this fields).
     public void updateFromDTO(CoordinatesDTO dto){
         this.setLatitude(dto.getLatitude());
         this.setLongitude(dto.getLongitude());

@@ -10,6 +10,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @AllArgsConstructor
 public class CoordinatesDTO extends AbstractClassDTO {
+
     private Double latitude;
     private Double longitude;
 

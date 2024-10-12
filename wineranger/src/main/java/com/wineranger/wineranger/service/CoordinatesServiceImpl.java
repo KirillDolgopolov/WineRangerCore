@@ -25,48 +25,61 @@ public class CoordinatesServiceImpl implements CoordinatesService{
     }
 
     @Override
+    public List<CoordinatesDTO> getAllAndValid() {
+        logger.info("getAllAndValid started");
+        return coordinatesRepository.findAllAndValid().stream().map(CoordinatesDTO::new).collect(Collectors.toList());
+    }
+
+    @Override
     public List<CoordinatesDTO> getAll() {
+        logger.info("getAll started");
         return coordinatesRepository.findAll().stream().map(CoordinatesDTO::new).collect(Collectors.toList());
     }
 
     @Override
     public CoordinatesDTO getById(Long id) throws Exception {
+        logger.info("getById started");
         Optional<Coordinates> existing = coordinatesRepository.findById(id);
         if(existing.isEmpty()){
             throw new Exception("No entity");
         }
+        logger.info("getById:{}", existing.get().toString());
         return existing.get().returnDTO();
     }
 
     @Override
     public CoordinatesDTO create(CoordinatesDTO dto) {
+        logger.info("create started");
         Coordinates entity = new Coordinates(dto);
-       // entity.prepareToSave();
-        logger.info(dto.toString());
+        logger.info("create:{}", entity.toString());
         return coordinatesRepository.save(entity).returnDTO();
     }
 
     @Override
     public CoordinatesDTO modify(CoordinatesDTO dto) throws Exception {
+        logger.info("modify started");
         Optional<Coordinates> existing = coordinatesRepository.findById(dto.getId());
         if(existing.isEmpty()){
             throw new Exception("No entity");
         }
         Coordinates entityToUpdate = existing.get();
-        entityToUpdate.updateEntity(dto);
+        entityToUpdate.updateSystemDataFields(dto);
         entityToUpdate.updateFromDTO(dto);
+        logger.info("modify:{}", entityToUpdate.toString());
         return coordinatesRepository.save(entityToUpdate).returnDTO();
 
     }
 
     @Override
     public CoordinatesDTO delete(Long id) throws Exception {
+        logger.info("delete started");
         Optional<Coordinates> existing = coordinatesRepository.findById(id);
         if(existing.isEmpty()){
             throw new Exception("No entity");
         }
         Coordinates entityToUpdate = existing.get();
-        entityToUpdate.setValid(false);
+        entityToUpdate.setDeleted();
+        logger.info("delete:{}", entityToUpdate.toString());
         return coordinatesRepository.save(entityToUpdate).returnDTO();
     }
 }

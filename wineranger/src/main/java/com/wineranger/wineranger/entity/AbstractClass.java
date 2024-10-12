@@ -31,25 +31,30 @@ public abstract class AbstractClass {
     }
 
     public AbstractClass(AbstractClassDTO dto) {
-        mapSystemFields(dto);
+        updateSystemDataFields(dto);
     }
 
     public AbstractClass() {
     }
 
-
-    public void mapSystemFields(AbstractClassDTO dto) {
+    //update all system fields
+    public void updateSystemDataFields(AbstractClassDTO dto) {
         this.setId(dto.getId());
         this.setValid(dto.getValid());
         this.setUserModId(dto.getUserModId());
         this.setDateMod(new Timestamp(System.currentTimeMillis()));
     }
 
-    public void updateEntity(AbstractClassDTO dto){
+    //update fields but not id
+    public void updateDataFields(AbstractClassDTO dto){
         this.setValid(dto.getValid());
         this.setUserModId(dto.getUserModId());
         this.setDateMod(new Timestamp(System.currentTimeMillis()));
     }
 
+    public void setDeleted() {
+        this.setValid(false);
+        this.setDateMod(new Timestamp(System.currentTimeMillis()));
+    }
 
 }

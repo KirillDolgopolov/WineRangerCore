@@ -5,6 +5,7 @@ import java.util.List;
 
 public interface CoordinatesService {
 
+    public List<CoordinatesDTO> getAllAndValid();
     public List<CoordinatesDTO> getAll();
     public CoordinatesDTO getById(Long id) throws Exception;
     public CoordinatesDTO create(CoordinatesDTO dto);

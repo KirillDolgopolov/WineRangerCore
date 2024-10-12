@@ -17,14 +17,13 @@ public abstract class AbstractClassDTO {
     private Timestamp dateMod;
 
     public AbstractClassDTO(){
-
     }
 
     public AbstractClassDTO(AbstractClass entity){
-        mapSystemFields(entity);
+        updateDataFields(entity);
     }
 
-    public void mapSystemFields(AbstractClass entity) {
+    public void updateDataFields(AbstractClass entity) {
         this.setId(entity.getId());
         this.setValid(entity.getValid());
         this.setUserModId(entity.getUserModId());

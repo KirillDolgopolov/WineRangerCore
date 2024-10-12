@@ -19,7 +19,16 @@ public class CoordinatesController {
         this.coordinatesService = coordinatesService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/all_valid")
+    public ResponseEntity<List<CoordinatesDTO>> getAllAndValid(){
+        try{
+            return new ResponseEntity<>(coordinatesService.getAllAndValid(), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/all")
     public ResponseEntity<List<CoordinatesDTO>> getAll(){
         try{
             return new ResponseEntity<>(coordinatesService.getAll(), HttpStatus.OK);
